@@ -898,6 +898,16 @@ nav::before {
 .srv-toggle::before { content: '▶'; font-size: 8px; transition: transform 0.2s; }
 .srv-card.aberto .srv-toggle::before { transform: rotate(90deg); }
 .srv-card.aberto .srv-toggle { color: var(--amber); }
+
+
+@keyframes glow-pulse {
+  0%,100% { text-shadow: 0 0 8px #00dbff, 0 0 20px #00dbff; }
+  50%      { text-shadow: 0 0 2px #00dbff; }
+}
+.glow-text {
+  color: #00dbff;
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
 </style>
 </head>
 <body>
@@ -912,9 +922,9 @@ nav::before {
   </div>
 
   <ul class="nav-links">
-    <li><a href="#servicos">Serviços</a></li>
-    <li><a href="#feedbacks">Clientes</a></li>
-    <li><a href="#contato">Contato</a></li>
+    <li><a href="#servicos" style="color: var(--green);">Serviços</a></li>
+    <li><a href="#feedbacks" style="color: var(--green);">Clientes</a></li>
+    <li><a href="#contato" style="color: var(--green);">Contato</a></li>
   </ul>
 
   <div class="nav-status">
@@ -932,20 +942,15 @@ nav::before {
 
     <div class="photo-wrap">
       <div class="photo-frame">
-        <!--
-          FOTO: substitua o .photo-placeholder por:
-          <img src="SUA-FOTO.jpg" alt="Felipe">
-        -->
         <div class="photo-placeholder">
-          <span class="photo-placeholder-icon">🧑‍💻</span>
-          <span style="font-size:10px;letter-spacing:1px;"><image src="https://i.postimg.cc/R0rYGf3S/imagem-2026-07-13-185510655.png" alt="Felipe" width="100" height="100"></span>
+          <span style="font-size:10px;letter-spacing:1px;"><image src="https://i.postimg.cc/pVk5GjB4/Gemini-Generated-Image-jx6apajx6apajx6a.png" alt="Felipe" ></span>
         </div>
         <div class="photo-scan-line"></div>
         <div class="frame-corner tl"></div>
         <div class="frame-corner tr"></div>
         <div class="frame-corner bl"></div>
         <div class="photo-id">
-          <span>ID: FLP-0042</span>
+          <span>ID: FLP-0024</span>
           <span style="color:var(--cyan);">VERIFICADO ✓</span>
         </div>
       </div>
@@ -1064,8 +1069,8 @@ nav::before {
         <span class="srv-tag">24h ativo</span>
         <span class="srv-tag">sem app extra</span>
         <span class="srv-tag">whatsapp-web.js</span>
-      </div>
-      <div class="srv-toggle" onclick="toggleSrv(this)">VER DETALHES</div>
+</div>
+      <div class="srv-toggle glow-text" onclick="toggleSrv(this)">VER DETALHES</div>
 <div class="srv-extra">
   Ideal para lanchonetes, pizzarias, barbearias e qualquer negócio que receba pedidos ou dúvidas pelo WhatsApp.
   O bot responde automaticamente com o cardápio, horários e encaminha para atendimento humano quando necessário.
@@ -1100,8 +1105,15 @@ nav::before {
         <span class="srv-tag">mercado pago</span>
         <span class="srv-tag">tempo real</span>
       </div>
+        <div class="srv-toggle glow-text" onclick="toggleSrv(this)">VER DETALHES</div>
+<div class="srv-extra">
+  Site de pedidos com URL própria, cardápio com fotos e preços, painel admin acessível pelo celular e integração
+  completa com Mercado Pago — Pix, cartão de crédito e dinheiro. Pedidos chegam em tempo real no painel.
+  <br><br>
+  <span style="color:var(--green)">ENTREGA:</span> site no ar + painel configurado + treinamento presencial.
+</div>
+      
     </div>
- 
     <div class="srv-card">
       <div class="srv-code">
         <span>PROTOCOLO ATIVO</span>
@@ -1127,6 +1139,13 @@ nav::before {
         <span class="srv-tag">sem app</span>
         <span class="srv-tag">fácil de editar</span>
       </div>
+      <div class="srv-toggle glow-text" onclick="toggleSrv(this)">VER DETALHES</div>
+<div class="srv-extra">
+  Link ou QR Code que abre um cardápio bonito e organizado no celular do cliente, sem instalar nada.
+  Você atualiza os itens, preços e fotos a qualquer momento pelo painel.
+  <br><br>
+  <span style="color:var(--green)">ENTREGA:</span> cardápio configurado + QR Code para impressão.
+</div>
     </div>
  
     <div class="srv-card">
@@ -1154,6 +1173,13 @@ nav::before {
         <span class="srv-tag">mobile first</span>
         <span class="srv-tag">rápida</span>
       </div>
+      <div class="srv-toggle glow-text" onclick="toggleSrv(this)">VER DETALHES</div>
+<div class="srv-extra">
+  Página profissional com seu nome, serviços, localização, galeria de fotos e botão direto pro WhatsApp.
+  Otimizada para aparecer nas primeiras posições quando alguém buscar seu tipo de negócio na sua cidade.
+  <br><br>
+  <span style="color:var(--green)">ENTREGA:</span> página no ar com domínio ou subdomínio configurado.
+</div>
     </div>
  
     <div class="srv-card">
@@ -1181,6 +1207,13 @@ nav::before {
         <span class="srv-tag">busca local</span>
         <span class="srv-tag">avaliações</span>
       </div>
+      <div class="srv-toggle glow-text" onclick="toggleSrv(this)">VER DETALHES</div>
+<div class="srv-extra">
+  Criação ou otimização do perfil para aparecer no Google Maps e nas buscas "perto de mim".
+  Configuração de horários, fotos, categoria, descrição e link do WhatsApp.
+  <br><br>
+  <span style="color:var(--green)">ENTREGA:</span> perfil publicado e verificado + orientações de como pedir avaliações.
+</div>
     </div>
  
     <div class="srv-card">
@@ -1208,6 +1241,14 @@ nav::before {
         <span class="srv-tag">geração de leads</span>
         <span class="srv-tag">presencial</span>
       </div>
+      <div class="srv-toggle glow-text" onclick="toggleSrv(this)">VER DETALHES</div>
+<div class="srv-extra">
+  Roteador configurado com portal de captura: o cliente conecta no Wi-Fi, informa nome e WhatsApp,
+  e você fica com o contato para campanhas futuras. Transforma cada visita em um lead real.
+  <br><br>
+  <span style="color:var(--green)">ENTREGA:</span> roteador configurado presencialmente + lista de contatos exportável.
+</div>
+
     </div>
  
   </div>
