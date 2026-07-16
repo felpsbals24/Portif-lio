@@ -933,6 +933,7 @@ nav::before {
 /* Esconde o site antes da intro acabar */
 body.intro-ativa > *:not(#intro-overlay) {
   visibility: hidden;
+  overflow: hidden;
 }
 
 /* NEON FLICKER — aplica nos elementos que quiser */
@@ -1617,6 +1618,7 @@ function enviarWpp() {
 
       setTimeout(() => {
         overlay.remove();
+        window.scrollTo(0, 0);  
 
         // 3. Neon flicker nos elementos alvo
         NEON_TARGETS.forEach((sel, i) => {
