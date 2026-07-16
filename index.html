@@ -908,10 +908,100 @@ nav::before {
   color: #00dbff;
   animation: glow-pulse 2.5s ease-in-out infinite;
 }
+/* INTRO */
+#intro-overlay {
+  position: fixed; inset: 0;
+  background: #000;
+  z-index: 9000;
+  display: flex; align-items: center; justify-content: center;
+  
+}
+#intro-video {
+ width: 100%; height: 100%;
+  object-fit: cover;
+  position: absolute;
+  z-index: 0;
+}
+#intro-flash {
+   position: absolute; inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9002;
+}
+
+/* Esconde o site antes da intro acabar */
+body.intro-ativa > *:not(#intro-overlay) {
+  visibility: hidden;
+}
+
+/* NEON FLICKER — aplica nos elementos que quiser */
+.neon-flicker {
+  animation: neon-on 2.4s ease forwards;
+}
+@keyframes neon-on {
+  0%   { opacity: 0; text-shadow: none; }
+  10%  { opacity: 1; text-shadow: 0 0 20px #00dbff; }
+  15%  { opacity: 0; text-shadow: none; }
+  20%  { opacity: 1; text-shadow: 0 0 20px #00dbff; }
+   25% { opacity: 0; text-shadow: none; }
+  30%  { opacity: 1; text-shadow: 0 0 10px #00dbff; }
+  35%  { opacity: 0.4; }
+  50%  { opacity: 1; text-shadow: 0 0 30px #00dbff, 0 0 60px #00dbff; }
+  70%  { opacity: 0.9; text-shadow: 0 0 20px #00dbff; }
+  100% { opacity: 1; text-shadow: 0 0 12px #00dbff, 0 0 30px rgba(0,219,255,0.4); }
+}
+#intro-start {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 16px; background: #000;
+}
+#intro-start-logo {
+  font-family: var(--font-display);
+  font-size: 52px; font-weight: 700;
+  letter-spacing: 8px; color: #00dbff;
+  text-shadow: 0 0 30px #00dbff;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+#intro-start-sub {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 3px; color: var(--muted2);
+}
+#intro-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9001;
+  margin-top: 20px;
+  padding: 14px 36px;
+  background: transparent;
+  border: 1px solid #00dbff;
+  color: #00dbff;
+  font-family: var(--font-mono);
+  font-size: 13px; letter-spacing: 3px;
+  cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: 0.2s;
+}
+#intro-btn:hover {
+  background: rgba(0,219,255,0.1);
+  box-shadow: 0 0 20px rgba(0,219,255,0.4);
+}
+#intro-start-note {
+  font-size: 10px; color: var(--muted); letter-spacing: 1px;
+}
 </style>
 </head>
 <body>
-
+  
+<div id="intro-overlay">
+  <button id="intro-btn" onclick="iniciarIntro()">▶ INICIAR</button>
+  <video id="intro-video" playsinline>
+    <source src="wdintro.mp4" type="video/mp4">
+  </video>
+  <div id="intro-flash"></div>
+</div>
 <!-- NAV ctOS -->
 <nav>
   <div class="nav-left">
@@ -1273,29 +1363,29 @@ nav::before {
       <div class="contato-node-list">
  
         <!-- ⚠️ Troque o número: 5519XXXXXXXXX → seu DDI+DDD+número sem espaços -->
-        <a href="https://wa.me/5519XXXXXXXXX" target="_blank" class="contato-node">
+        <a href="https://wa.me/551983318617" target="_blank" class="contato-node">
           <span class="node-icon">📱</span>
           <div class="node-info">
             <span class="node-label">WhatsApp</span>
-            <span class="node-val">(19) XXXXX-XXXX</span>
+            <span class="node-val">(19) 8331-8617</span>
           </div>
         </a>
  
         <!-- ⚠️ Troque pelo seu e-mail -->
-        <a href="mailto:SEU@EMAIL.COM" class="contato-node">
+        <a href="mailto:felipe09676@gmail.com" class="contato-node">
           <span class="node-icon">✉️</span>
           <div class="node-info">
             <span class="node-label">E-mail</span>
-            <span class="node-val">SEU@EMAIL.COM</span>
+            <span class="node-val">felipe09676@gmail.com</span>
           </div>
         </a>
  
         <!-- ⚠️ Troque pelo seu @ do Instagram -->
-        <a href="https://instagram.com/SEUINSTAGRAM" target="_blank" class="contato-node">
+        <a href="https://instagram.com/BlumeDedsec" target="_blank" class="contato-node">
           <span class="node-icon">📸</span>
           <div class="node-info">
             <span class="node-label">Instagram</span>
-            <span class="node-val">@blumesolucoes</span>
+            <span class="node-val">@BlumeDedsec</span>
           </div>
         </a>
  
@@ -1491,6 +1581,68 @@ function enviarWpp() {
   fb.style.display = 'block';
   setTimeout(() => window.open(url, '_blank'), 700);
 }
+
+// INTRO
+(function () {
+  document.body.classList.add('intro-ativa');
+
+  const video   = document.getElementById('intro-video');
+  const flash   = document.getElementById('intro-flash');
+  const overlay = document.getElementById('intro-overlay');
+
+  // Elementos que vão ter o efeito neon ao entrar
+  // Adicione ou remova seletores conforme quiser
+  const NEON_TARGETS = [
+    '.nav-logo',
+    '.hero-headline .line-green',
+    '.sec-title span',
+    '.footer-logo'
+  ];
+
+  function revelarSite() {
+    // 1. Flash branco
+    flash.style.transition = 'opacity 0.08s';
+    flash.style.opacity = '1';
+
+    setTimeout(() => {
+      flash.style.transition = 'opacity 0.15s';
+      flash.style.opacity = '0';
+    }, 80);
+
+    setTimeout(() => {
+      // 2. Remove overlay, revela site
+      overlay.style.transition = 'opacity 0.2s';
+      overlay.style.opacity = '0';
+      document.body.classList.remove('intro-ativa');
+
+      setTimeout(() => {
+        overlay.remove();
+
+        // 3. Neon flicker nos elementos alvo
+        NEON_TARGETS.forEach((sel, i) => {
+          document.querySelectorAll(sel).forEach(el => {
+            setTimeout(() => el.classList.add('neon-flicker'), i * 180);
+          });
+        });
+
+      }, 200);
+    }, 220);
+  }
+
+  video.addEventListener('ended', revelarSite);
+
+  // Fallback: se o vídeo não carregar, revela após 5s
+  video.addEventListener('error', () => setTimeout(revelarSite, 300));
+  setTimeout(() => {
+    if (document.body.classList.contains('intro-ativa')) revelarSite();
+  }, 8000);
+
+  
+})();
+function iniciarIntro() {
+  document.getElementById('intro-btn').style.display = 'none';
+  video.play();
+};
 </script>
 
 </body>
